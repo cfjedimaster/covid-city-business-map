@@ -1,4 +1,22 @@
+body {
+	margin: 0px;
+}
+
+#mapContainer {
+	width: 100vw;
+	height: 100vh;
+}
 
 div.info {
 	width: 300px;
+}
+
+#panel {
+	position: absolute;
+	left: 20px;
+	top: 20px;
+	width: 250px;
+	background-color: aqua;
+	padding: 5px;
+	z-index: 10;
 }
