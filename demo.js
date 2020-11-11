@@ -29,6 +29,8 @@ async function init() {
 
 	icon = new H.map.Icon('cart.png');
 
+	await setStyle();
+
 	group = new H.map.Group();
 	map.addObject(group);
 
@@ -68,6 +70,11 @@ async function init() {
 
 }
 
+async function setStyle() {
+	const style = await fetch('mapStyle.yaml').then((res) => res.text());
+	const provider = map.getBaseLayer().getProvider()
+	provider.setStyle(new H.map.Style(style));
+}
 
 async function loadData() {
 	let resp = await fetch(sheetURL);
