@@ -56,7 +56,12 @@ async function init() {
 			openHours:d["Opening Hours"],
 			contactless:d["Do you offer contactless delivery?"],
 			curbside:d["Do you offer curbside pickup?"],
-			delivery:d["Do you offer delivery?"]
+			delivery:d["Do you offer delivery?"],
+			url:d["Business URL"],
+			phone:d["Business Phone Number"],
+			instagram:d["Instagram Account"],
+			facebook:d["Facebook Page"],
+			twitter:d["Twitter account"]
 		}
 		addLocation(location, info);
 	});
@@ -69,7 +74,7 @@ async function loadData() {
 	let data = await resp.json();
 	let entries = data.feed.entry;
 	
-	const numCols = 10;
+	const numCols = 15;
 	const columns = entries.slice(0, numCols).map((x) => x.content.$t);
 	
 	const tableCells = entries.slice(numCols, entries.length);
@@ -111,7 +116,14 @@ function addLocation(location, info) {
 <p>
 <strong>Name: ${info.name}</strong><br/>
 Open Hours: ${info.openHours}<br/>
-Address: ${info.address}<br/>
+Address: ${info.address}<br/>`;
+	if(info.url) html += `URL: <a href="${info.url}" target="_new">${info.url}</a><br/>`;
+	if(info.phone) html += `Phone: ${info.phone}<br/>`;
+	if(info.instagram) html += `Instagram: <a href="https://www.instagram.com/${info.instagram}" target="_new">${info.instagram}</a><br/>`;
+	if(info.twitter) html += `Twitter: <a href="https://www.twitter.com/${info.twitter}" target="_new">${info.twitter}</a><br/>`;
+	if(info.facebook) html += `Facebook: <a href="https://www.facebook.com/${info.facebook}" target="_new">${info.facebook}</a><br/>`;
+
+	html += `
 </p>
 
 <p>
@@ -119,6 +131,9 @@ Delivery? ${info.delivery}<br/>
 Contactless Delivery? ${info.contactless}<br/>
 Curbside Pickup? ${info.curbside}
 </p>
+
+<p>
+<a href="https://wego.here.com/?map=${location.lat},${location.lng},15,normal" target="_new">View on HERE WeGo</a>
 </div>
 	`;
 	marker.setData(html);
