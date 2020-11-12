@@ -63,7 +63,8 @@ async function init() {
 			phone:d["Business Phone Number"],
 			instagram:d["Instagram Account"],
 			facebook:d["Facebook Page"],
-			twitter:d["Twitter account"]
+			twitter:d["Twitter account"],
+			whatsapp:d["Is your phone number on WhatsApp?"]
 		}
 		addLocation(location, info);
 	});
@@ -81,7 +82,7 @@ async function loadData() {
 	let data = await resp.json();
 	let entries = data.feed.entry;
 	
-	const numCols = 15;
+	const numCols = 16;
 	const columns = entries.slice(0, numCols).map((x) => x.content.$t);
 	
 	const tableCells = entries.slice(numCols, entries.length);
@@ -126,6 +127,7 @@ Open Hours: ${info.openHours}<br/>
 Address: ${info.address}<br/>`;
 	if(info.url) html += `URL: <a href="${info.url}" target="_new">${info.url}</a><br/>`;
 	if(info.phone) html += `Phone: ${info.phone}<br/>`;
+	if(info.whatsapp) html += `Also available on WhatsApp<br>`;
 	if(info.instagram) html += `Instagram: <a href="https://www.instagram.com/${info.instagram}" target="_new">${info.instagram}</a><br/>`;
 	if(info.twitter) html += `Twitter: <a href="https://www.twitter.com/${info.twitter}" target="_new">${info.twitter}</a><br/>`;
 	if(info.facebook) html += `Facebook: <a href="https://www.facebook.com/${info.facebook}" target="_new">${info.facebook}</a><br/>`;
