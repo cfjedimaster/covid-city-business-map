@@ -31,7 +31,6 @@ async function init() {
 
 
 	let behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-	let ui = H.ui.UI.createDefault(map, defaultLayers);
 
 	icon = new H.map.Icon('cart.png');
 
