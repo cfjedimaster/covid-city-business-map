@@ -31,6 +31,11 @@ async function init() {
 
 
 	let behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+	//todo, modify this so we dont get defaults and remove them
+	var ui = H.ui.UI.createDefault(map, defaultLayers);
+	ui.removeControl('zoom');
+	ui.removeControl('mapsettings');
+	ui.removeControl('scalebar');
 
 	icon = new H.map.Icon('cart.png');
 
@@ -69,7 +74,8 @@ async function init() {
 			instagram:d["Instagram Account"],
 			facebook:d["Facebook Page"],
 			twitter:d["Twitter account"],
-			whatsapp:d["Is your phone number on WhatsApp?"]
+			whatsapp:d["Is your phone number on WhatsApp?"],
+			businesstype:d["What type of business?"]
 		}
 		addLocation(location, info);
 	});
@@ -87,7 +93,7 @@ async function loadData() {
 	let data = await resp.json();
 	let entries = data.feed.entry;
 	
-	const numCols = 16;
+	const numCols = 17;
 	const columns = entries.slice(0, numCols).map((x) => x.content.$t);
 	
 	const tableCells = entries.slice(numCols, entries.length);
@@ -122,7 +128,7 @@ async function loadData() {
 }
 
 function addLocation(location, info) {
-	console.log(location, info);
+	console.log(info);
 	let marker = new H.map.Marker({lat:location.lat, lng:location.lng}, { icon:icon});
 	let html = `
 <div class='info'>
