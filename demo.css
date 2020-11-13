@@ -12,6 +12,7 @@ div.info {
 	width: 300px;
 }
 
+
 #panel {
 	position: absolute;
 	left: 20px;
@@ -23,6 +24,26 @@ div.info {
 	padding: 1rem;
 	z-index: 10;
 }
+
+#panel h2 {
+    margin-top: -5px;
+}
+
+@media screen and (max-width: 420px) {
+    #panel {
+    	position: relative;
+        top: 5px;
+        left:auto;
+        margin: auto;
+        width: 80%;
+        background: rgb(255, 255, 255);
+        border-radius: 0.5rem;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+        padding: 1rem;
+        z-index: 10;
+    }
+}
+
 
 .submitBtn {
     display: inline-flex;
@@ -51,6 +72,3 @@ div.info {
     background: transparent;
 }
 
-     .H_imprint: {
-        display: "none !important",
-     },

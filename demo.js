@@ -28,6 +28,7 @@ async function init() {
 			pixelRatio: window.devicePixelRatio || 1
 		}
 	);
+	window.addEventListener('resize', () => map.getViewPort().resize());
 
 
 	let behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
