@@ -1,11 +1,17 @@
 const KEY = 'c1LJuR0Bl2y02PefaQ2d8PvPnBKEN8KdhAOFYR_Bgmw';
 const sheetURL = 'https://spreadsheets.google.com/feeds/cells/1-YPlOIC6AxynitIiitrQ08oxzXxtgeCvsQFa3bmcYsQ/1/public/full?alt=json';
+const formURL = 'https://docs.google.com/forms/d/e/1FAIpQLSdNJhO3mmjfOPXwJ2oMDvXZqPW4HEEDg1_IKkVcrEEBiSnWcw/viewform';
 
 document.addEventListener('DOMContentLoaded', init, false);
 
 let map, icon, group;
 
 async function init() {
+
+	document.querySelector('#gotoFormBtn').addEventListener('click', e => {
+		document.location.href = formURL;
+	});
+
 	var platform = new H.service.Platform({
 		'apikey': KEY
 	});
