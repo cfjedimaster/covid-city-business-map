@@ -56,6 +56,9 @@ async function init() {
 		});
 		// show info bubble
 		ui.addBubble(bubble);
+		//center map maybe? no, not now
+		//map.getViewModel().setLookAtData({position: evt.target.getGeometry()});
+
 	}, false);
 
 	let data = await loadData();
@@ -158,7 +161,6 @@ Curbside Pickup? ${info.curbside}
 </div>
 	`;
 	marker.setData(html);
-//	map.addObject(marker);
 	group.addObject(marker);
 
 }

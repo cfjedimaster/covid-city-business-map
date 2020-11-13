@@ -41,6 +41,12 @@ div.info {
         padding: 1rem;
         z-index: 10;
     }
+
+    div.info {
+	    width: 300px;
+        font-size2: 12px;
+    }
+
 }
 
 
@@ -71,3 +77,12 @@ div.info {
     background: transparent;
 }
 
+.H_imprint {
+        display: none !important;
+}
+
+.hereLogo {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+}
