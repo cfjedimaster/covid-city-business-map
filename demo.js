@@ -64,26 +64,10 @@ async function init() {
 	let data = await loadData();
 	console.log('i have '+data.length+' records to show');
 	console.log(data[0]);
-	data.forEach(d => {
-		let location = { lat: parseFloat(d.lat,10), lng:parseFloat(d.lng,10) };
-		let info = { 
-			name: d["Name"], 
-			address: d["Address"], 
-			openHours:d["Opening Hours"],
-			contactless:d["Do you offer contactless delivery?"],
-			curbside:d["Do you offer curbside pickup?"],
-			delivery:d["Do you offer delivery?"],
-			url:d["Business URL"],
-			phone:d["Business Phone Number"],
-			instagram:d["Instagram Account"],
-			facebook:d["Facebook Page"],
-			twitter:d["Twitter account"],
-			whatsapp:d["Is your phone number on WhatsApp?"],
-			businesstype:d["What type of business?"]
-		}
-		addLocation(location, info);
-	});
 
+	data.forEach(d => {
+		addLocation(d.location, d.info);
+	});
 }
 
 async function setStyle() {
@@ -127,8 +111,33 @@ async function loadData() {
 	/*
 	we now have blank rows - but we can easily filter to just approved = true
 	*/
-	return output.filter(c => c.approved === 'TRUE');
-	
+	output = output.filter(c => c.approved === 'TRUE');
+
+	/*
+	now shape the results
+	*/
+	let results = [];
+	output.forEach(d => {
+		let location = { lat: parseFloat(d.lat,10), lng:parseFloat(d.lng,10) };
+		let info = { 
+			name: d["Name"], 
+			address: d["Address"], 
+			openHours:d["Opening Hours"],
+			contactless:d["Do you offer contactless delivery?"],
+			curbside:d["Do you offer curbside pickup?"],
+			delivery:d["Do you offer delivery?"],
+			url:d["Business URL"],
+			phone:d["Business Phone Number"],
+			instagram:d["Instagram Account"],
+			facebook:d["Facebook Page"],
+			twitter:d["Twitter account"],
+			whatsapp:d["Is your phone number on WhatsApp?"],
+			businesstype:d["What type of business?"]
+		}
+		results.push({ location, info });
+	});
+
+	return results;
 }
 
 function addLocation(location, info) {
