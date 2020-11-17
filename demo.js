@@ -6,6 +6,12 @@ document.addEventListener('DOMContentLoaded', init, false);
 
 let map, icon, group;
 
+const icons = {
+	fallback: new H.map.Icon('icons/lui-icon-destinationpin-onlight-solid-medium.png'),
+	dining: new H.map.Icon('icons/lui-icon-eatanddrink-onlight-solid-medium.png'),
+	business: new H.map.Icon('icons/lui-icon-business-onlight-solid-medium.png')
+}
+
 async function init() {
 
 	document.querySelector('#gotoFormBtn').addEventListener('click', e => {
@@ -38,7 +44,7 @@ async function init() {
 	ui.removeControl('mapsettings');
 	ui.removeControl('scalebar');
 
-	icon = new H.map.Icon('cart.png');
+	//icon = new H.map.Icon('cart.png');
 
 	await setStyle();
 
@@ -134,15 +140,25 @@ async function loadData() {
 			whatsapp:d["Is your phone number on WhatsApp?"],
 			businesstype:d["What type of business?"]
 		}
+		info.icon = getIcon(info.businesstype);
+		console.log(info);
 		results.push({ location, info });
 	});
 
 	return results;
 }
 
+function getIcon(type) {
+	if(type.indexOf('Shopping') >= 0) return 'business';
+	if(type.indexOf('Eating Out') >= 0) return 'dining';
+	//default
+	return 'fallback';
+}
+
+
 function addLocation(location, info) {
 	console.log(info);
-	let marker = new H.map.Marker({lat:location.lat, lng:location.lng}, { icon:icon});
+	let marker = new H.map.Marker({lat:location.lat, lng:location.lng}, { icon:icons[info.icon]});
 	let html = `
 <div class='info'>
 <p>
