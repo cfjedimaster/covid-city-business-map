@@ -1,7 +1,8 @@
 const KEY = 'c1LJuR0Bl2y02PefaQ2d8PvPnBKEN8KdhAOFYR_Bgmw';
 const sheetURL = 'https://spreadsheets.google.com/feeds/cells/1-YPlOIC6AxynitIiitrQ08oxzXxtgeCvsQFa3bmcYsQ/1/public/full?alt=json';
-const formURL = 'https://docs.google.com/forms/d/e/1FAIpQLSdNJhO3mmjfOPXwJ2oMDvXZqPW4HEEDg1_IKkVcrEEBiSnWcw/viewform';
+const formURL = 'https://forms.office.com/Pages/ResponsePage.aspx?id=zTRAbSVyck-4U5H-rqZJGb5R086JKX1Dr4bzttc1Kn9UN1daUkVQRVRGMURaWk8yRjJHN0dPMVgxQi4u';
 
+const csvURL = './Business Responses.csv';
 document.addEventListener('DOMContentLoaded', init, false);
 
 let map, icon, group;
@@ -83,69 +84,42 @@ async function setStyle() {
 }
 
 async function loadData() {
-	let resp = await fetch(sheetURL);
-	let data = await resp.json();
-	let entries = data.feed.entry;
-	
-	const numCols = 17;
-	const columns = entries.slice(0, numCols).map((x) => x.content.$t);
-	
-	const tableCells = entries.slice(numCols, entries.length);
-	let output = [];
-	/*
-	Notes for Ray tomorrow, 
-	each item in tableCells is - wait for it, a cell, but we have no entry for blank cells
-	so new logic will be keep track of current row via cell title, which is A1, B1, etc,
-	and the number is the row. So new logic will simply do this for each
-	Nope, cuz cell.gs$cell has a row and col val
-	*/
 
-	for(let i=0;i<tableCells.length;i++) {
-		let cell = tableCells[i];
-		let col = parseInt(cell.gs$cell.col,10);
-		let row = parseInt(cell.gs$cell.row,10);
+	return new Promise((resolve, reject) => {
+		Papa.parse(csvURL, {
+			download:true, 
+			header:true,
+			skipEmptyLines:'greedy',
+			complete: output => {
+				//console.log(output);
+				let results = [];
+				output.data.forEach(d => {
+					let location = { lat: parseFloat(d["Lat"],10), lng:parseFloat(d["Lng"],10) };
+					let info = { 
+						name: d["Name"], 
+						address: d["Address"], 
+						openHours:d["Open Hours"],
+						contactless:d["Contactless"],
+						curbside:d["Curbside"],
+						delivery:d["Delivery"],
+						url:d["URL"],
+						phone:d["Phone"],
+						instagram:d["Instagram"],
+						facebook:d["Facebook Page"],
+						twitter:d["Twitter"],
+						whatsapp:d["WhatsApp"],
+						businesstype:d["Type"]
+					}
+					info.icon = getIcon(info.businesstype);
+					results.push({ location, info });
+				});
 
-		if(!output[row-2]) {
-			let newRow = {};
-			columns.forEach(c => newRow[c] = '');
-			output[row-2] = newRow;
-		}
+				resolve(results);
 
-		output[row-2][columns[col-1]] = cell.content.$t;
-	}
+			}
+		});
 
-	/*
-	we now have blank rows - but we can easily filter to just approved = true
-	*/
-	output = output.filter(c => c.approved === 'TRUE');
-
-	/*
-	now shape the results
-	*/
-	let results = [];
-	output.forEach(d => {
-		let location = { lat: parseFloat(d.lat,10), lng:parseFloat(d.lng,10) };
-		let info = { 
-			name: d["Name"], 
-			address: d["Address"], 
-			openHours:d["Opening Hours"],
-			contactless:d["Do you offer contactless delivery?"],
-			curbside:d["Do you offer curbside pickup?"],
-			delivery:d["Do you offer delivery?"],
-			url:d["Business URL"],
-			phone:d["Business Phone Number"],
-			instagram:d["Instagram Account"],
-			facebook:d["Facebook Page"],
-			twitter:d["Twitter account"],
-			whatsapp:d["Is your phone number on WhatsApp?"],
-			businesstype:d["What type of business?"]
-		}
-		info.icon = getIcon(info.businesstype);
-		console.log(info);
-		results.push({ location, info });
 	});
-
-	return results;
 }
 
 function getIcon(type) {
@@ -157,7 +131,6 @@ function getIcon(type) {
 
 
 function addLocation(location, info) {
-	console.log(info);
 	let marker = new H.map.Marker({lat:location.lat, lng:location.lng}, { icon:icons[info.icon]});
 	let html = `
 <div class='info'>
