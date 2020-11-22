@@ -140,7 +140,6 @@ Open Hours: ${info.openHours}<br/>
 Address: ${info.address}<br/>`;
 	if(info.url) html += `URL: <a href="${info.url}" target="_new">${info.url}</a><br/>`;
 	if(info.phone) html += `Phone: ${info.phone}<br/>`;
-	if(info.whatsapp) html += `Also available on WhatsApp<br>`;
 	if(info.instagram) html += `Instagram: <a href="https://www.instagram.com/${info.instagram}" target="_new">${info.instagram}</a><br/>`;
 	if(info.twitter) html += `Twitter: <a href="https://www.twitter.com/${info.twitter}" target="_new">${info.twitter}</a><br/>`;
 	if(info.facebook) html += `Facebook: <a href="https://www.facebook.com/${info.facebook}" target="_new">${info.facebook}</a><br/>`;
