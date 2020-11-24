@@ -100,7 +100,7 @@ async function loadData() {
 						address: d["Address"], 
 						openHours:d["Open Hours"],
 						contactless:d["Contactless"],
-						curbside:d["Curbside"],
+						curbside:d["Takeaway"],
 						delivery:d["Delivery"],
 						url:d["URL"],
 						phone:d["Phone"],
