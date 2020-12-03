@@ -10,7 +10,9 @@ let map, icon, group;
 const icons = {
 	fallback: new H.map.Icon('icons/lui-icon-destinationpin-onlight-solid-medium.png'),
 	dining: new H.map.Icon('icons/lui-icon-eatanddrink-onlight-solid-medium.png'),
-	business: new H.map.Icon('icons/lui-icon-business-onlight-solid-medium.png')
+	business: new H.map.Icon('icons/lui-icon-shopping-onlight-solid-medium.png'),
+	coffee: new H.map.Icon('icons/lui-icon-coffee-onlight-solid-medium.png'),
+	fastfood: new H.map.Icon('icons/lui-icon-foodpizza-onlight-solid-medium.png')
 }
 
 async function init() {
@@ -123,8 +125,11 @@ async function loadData() {
 }
 
 function getIcon(type) {
-	if(type.indexOf('Shopping') >= 0) return 'business';
-	if(type.indexOf('Eating Out') >= 0) return 'dining';
+console.log(type);
+	if(type.toLowerCase().indexOf('coffee') >= 0) return 'coffee';
+	if(type.toLowerCase().indexOf('fast food') >= 0) return 'fastfood';
+	if(type.toLowerCase().indexOf('shopping') >= 0) return 'business';
+	if(type.toLowerCase().indexOf('eating out') >= 0) return 'dining';
 	//default
 	return 'fallback';
 }
