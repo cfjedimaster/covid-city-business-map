@@ -55,7 +55,7 @@ async function init() {
 	map.addObject(group);
 
 	group.addEventListener('tap', evt => {
-
+console.log('show bubble event');
 		ui.getBubbles().forEach(bub => ui.removeBubble(bub));
 		// event target is the marker itself, group is a parent event target
 		// for all objects that it contains
@@ -72,7 +72,7 @@ async function init() {
 
 	let data = await loadData();
 	console.log('i have '+data.length+' records to show');
-	console.log(data[0]);
+	//console.log(data[0]);
 
 	data.forEach(d => {
 		addLocation(d.location, d.info);
@@ -125,7 +125,6 @@ async function loadData() {
 }
 
 function getIcon(type) {
-console.log(type);
 	if(type.toLowerCase().indexOf('coffee') >= 0) return 'coffee';
 	if(type.toLowerCase().indexOf('fast food') >= 0) return 'fastfood';
 	if(type.toLowerCase().indexOf('shopping') >= 0) return 'business';
@@ -137,17 +136,19 @@ console.log(type);
 
 function addLocation(location, info) {
 	let marker = new H.map.Marker({lat:location.lat, lng:location.lng}, { icon:icons[info.icon]});
+	let type = info.businesstype.split(' - ').pop();
 	let html = `
 <div class='info'>
+<div class='businessName'>${info.name}</div>
 <p>
-<strong>Name: ${info.name}</strong><br/>
+${type}<br/>
 Open Hours: ${info.openHours}<br/>
 Address: ${info.address}<br/>`;
-	if(info.url) html += `URL: <a href="${info.url}" target="_new">${info.url}</a><br/>`;
-	if(info.phone) html += `Phone: ${info.phone}<br/>`;
-	if(info.instagram) html += `Instagram: <a href="https://www.instagram.com/${info.instagram}" target="_new">${info.instagram}</a><br/>`;
-	if(info.twitter) html += `Twitter: <a href="https://www.twitter.com/${info.twitter}" target="_new">${info.twitter}</a><br/>`;
-	if(info.facebook) html += `Facebook: <a href="https://www.facebook.com/${info.facebook}" target="_new">${info.facebook}</a><br/>`;
+	if(info.url) html += `<img src="icons/lui-icon-information-onlight-solid-medium.png"> <a href="${info.url}" target="_new">${info.url}</a><br/>`;
+	if(info.phone) html += `<img src="icons/lui-icon-phone-onlight-solid-medium.png" >  ${info.phone}<br/>`;
+	if(info.instagram) html += `<img src="icons/instagram-logo.png"> <a href="https://www.instagram.com/${info.instagram}" target="_new">${info.instagram}</a><br/>`;
+	if(info.twitter) html += `<img src="icons/twitter_logo.png"> <a href="https://www.twitter.com/${info.twitter}" target="_new">${info.twitter}</a><br/>`;
+	if(info.facebook) html += `<img src="icons/fb_logo.png"> <a href="https://www.facebook.com/${info.facebook}" target="_new">${info.facebook}</a><br/>`;
 
 	html += `
 </p>
@@ -157,9 +158,6 @@ Delivery? ${info.delivery}<br/>
 Contactless Delivery? ${info.contactless}<br/>
 Curbside Pickup? ${info.curbside}
 </p>
-
-<p>
-<a href="https://wego.here.com/?map=${location.lat},${location.lng},15,normal" target="_new">View on HERE WeGo</a>
 </div>
 	`;
 	marker.setData(html);
