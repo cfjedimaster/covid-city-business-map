@@ -55,7 +55,7 @@ async function init() {
 	group = new H.map.Group();
 	map.addObject(group);
 
-	group.addEventListener('pointerenter', evt => {
+	group.addEventListener('pointermove', evt => {
 		console.log('show bubble event');
 		ui.getBubbles().forEach(bub => ui.removeBubble(bub));
 		// event target is the marker itself, group is a parent event target
@@ -70,6 +70,7 @@ async function init() {
 		//map.getViewModel().setLookAtData({position: evt.target.getGeometry()});
 
 	}, false);
+
 
 	data.forEach(d => {
 		addLocation(d.location, d.info);
