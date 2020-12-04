@@ -57,7 +57,11 @@ async function init() {
 
 	group.addEventListener('pointermove', evt => {
 		console.log('show bubble event');
-		ui.getBubbles().forEach(bub => ui.removeBubble(bub));
+		//ui.getBubbles().forEach(bub => ui.removeBubble(bub));
+		let bubbles = ui.getBubbles();
+		while(bubbles.length > 0) {
+   			ui.removeBubble(bubbles[0])
+		}
 		// event target is the marker itself, group is a parent event target
 		// for all objects that it contains
 		var bubble =  new H.ui.InfoBubble(evt.target.getGeometry(), {
