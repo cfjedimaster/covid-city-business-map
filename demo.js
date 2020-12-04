@@ -32,7 +32,7 @@ async function init() {
 		document.getElementById('mapContainer'),
 		defaultLayers.vector.normal.map,
 		{
-			zoom: 12,
+			zoom: 13,
 			center: { lat: 53.41005, lng: -2.9784 },
 			pixelRatio: window.devicePixelRatio || 1
 		}
@@ -47,15 +47,16 @@ async function init() {
 	ui.removeControl('mapsettings');
 	ui.removeControl('scalebar');
 
-	//icon = new H.map.Icon('cart.png');
-
 	await setStyle();
+
+	let data = await loadData();
+	console.log('i have '+data.length+' records to show');
 
 	group = new H.map.Group();
 	map.addObject(group);
 
-	group.addEventListener('tap', evt => {
-console.log('show bubble event');
+	group.addEventListener('pointerenter', evt => {
+		console.log('show bubble event');
 		ui.getBubbles().forEach(bub => ui.removeBubble(bub));
 		// event target is the marker itself, group is a parent event target
 		// for all objects that it contains
@@ -70,13 +71,11 @@ console.log('show bubble event');
 
 	}, false);
 
-	let data = await loadData();
-	console.log('i have '+data.length+' records to show');
-	//console.log(data[0]);
-
 	data.forEach(d => {
 		addLocation(d.location, d.info);
 	});
+
+
 }
 
 async function setStyle() {
