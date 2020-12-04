@@ -21,6 +21,10 @@ async function init() {
 		document.location.href = formURL;
 	});
 
+	document.querySelector('#wegoBtn').addEventListener('click', e => {
+		document.location.href = 'https://wegodeliver.here.com/?cid=here.com-cta';
+	});
+
 	var platform = new H.service.Platform({
 		'apikey': KEY
 	});
@@ -55,16 +59,11 @@ async function init() {
 	group = new H.map.Group();
 	map.addObject(group);
 
-	group.addEventListener('pointermove', evt => {
+	group.addEventListener('tap', evt => {
 		console.log('show bubble event');
 
-		//ui.getBubbles().forEach(bub => ui.removeBubble(bub));
-		
-		let bubbles = ui.getBubbles();
-		while(bubbles.length > 0) {
-   			ui.removeBubble(bubbles[0])
-		}
-		
+		ui.getBubbles().forEach(bub => ui.removeBubble(bub));
+				
 		var bubble =  new H.ui.InfoBubble(evt.target.getGeometry(), {
 			content: evt.target.getData()
 		});
@@ -148,11 +147,11 @@ function addLocation(location, info) {
 ${type}<br/>
 Open Hours: ${info.openHours}<br/>
 Address: ${info.address}<br/>`;
-	if(info.url) html += `<img src="icons/lui-icon-information-onlight-solid-medium.png"> <a href="${info.url}" target="_new">${info.url}</a><br/>`;
+	if(info.url) html += `<img src="icons/lui-icon-information-onlight-solid-medium.png"> <a href="${info.url}" target="_new">${linkShort(info.url)}</a><br/>`;
 	if(info.phone) html += `<img src="icons/lui-icon-phone-onlight-solid-medium.png" >  ${info.phone}<br/>`;
-	if(info.instagram) html += `<img src="icons/instagram-logo.png"> <a href="https://www.instagram.com/${info.instagram}" target="_new">${info.instagram}</a><br/>`;
-	if(info.twitter) html += `<img src="icons/twitter_logo.png"> <a href="https://www.twitter.com/${info.twitter}" target="_new">${info.twitter}</a><br/>`;
-	if(info.facebook) html += `<img src="icons/fb_logo.png"> <a href="https://www.facebook.com/${info.facebook}" target="_new">${info.facebook}</a><br/>`;
+	if(info.instagram) html += `<img src="icons/instagram-logo.png"> <a href="${info.instagram}" target="_new">${linkShort(info.instagram)}</a><br/>`;
+	if(info.twitter) html += `<img src="icons/twitter_logo.png"> <a href="${info.twitter}" target="_new">${linkShort(info.twitter)}</a><br/>`;
+	if(info.facebook) html += `<img src="icons/fb_logo.png"> <a href="${info.facebook}" target="_new">${linkShort(info.facebook)}</a><br/>`;
 
 	html += `
 </p>
@@ -169,3 +168,6 @@ Curbside Pickup? ${info.curbside}
 
 }
 
+function linkShort(s) {
+	return s.replace('https://', '');
+}
