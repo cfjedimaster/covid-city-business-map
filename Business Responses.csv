@@ -1,13 +1,17 @@
-﻿Name,Address,Open Hours,Delivery,Takeaway,Contactless,URL,Phone,WhatsApp,Instagram,Facebook Page,Twitter,Type,Lat,Lng
-The Baltic Social,"27 Parliament St, Liverpool L8 5RN, United Kingdom","Mon - thurs: 10am - 11pm
+﻿Name;Address;Open Hours;Delivery;Takeaway;Contactless;URL;Phone;WhatsApp;Instagram;Facebook Page;Twitter;Type;Lat;Lng
+The Baltic Social;27 Parliament St, Liverpool L8 5RN, United Kingdom;"Mon - thurs: 10am - 11pm
 Fri & sat: 10am - 2am
-Sun: 10am - 8pm ",Yes,Yes,Yes,https://thebalticsocial.com/,+44 151 7071137 ,,https://www.instagram.com/thebaltic_social/,https://www.facebook.com/thebalticsocial,https://twitter.com/thebalticsocial,Food / Craft beer,53.3943497,-2.9815034
-Patterson Bar,"Gradwell Street, L1 4JH",12 - 11pm,Yes,Yes,Yes,http://www.pattersonsliverpool.com/,+441517076367,,https://www.instagram.com/pattersonsarentwe/,,,Bar,53.4024684,-2.9851084
-Bakchich ," 54 Bold Street, Liverpool, L1 4ER ",12 - 9pm,Yes,Yes,Yes,http://www.bakchich.co.uk/liverpool.php,+441517071255,,https://www.instagram.com/bakchich_/,https://www.facebook.com/BakchichBoldStLiverpool/,https://twitter.com/Bakchich_,Restaurant,53.4034132,-2.9816197
-Christakis,"136-138 Duke St, Liverpool L1 5BB, United Kingdom",Tue-Sun 4pm-9pm,Yes,Yes,Yes,http://www.christakisliverpool.co.uk/#menu,+441517089791,,https://www.instagram.com/christakis_liverpool/,https://www.facebook.com/ChristakisLpl/,https://twitter.com/Christakislpl,Restaurant,53.4003654,-2.9801825
-Crust,"25 Bold St, Liverpool",11am - 11pm,Yes,Yes,Yes,http://www.crustliverpool.co.uk/,,,https://www.instagram.com/crust_uk/,,,Restaurant,53.4037005,-2.9815344
-B S C,"89 Bold St, Liverpool L1 4HF, United Kingdom",07:30am - 8pm,No,Yes,No,https://www.boldstreetcoffee.co.uk/,+441514564677,,https://www.instagram.com/boldstreetcoffee/,https://www.facebook.com/bold.streetcoffee/,https://twitter.com/boldstcoffee?lang=en,Coffeeshop ,53.402469,-2.9790132
-Amalia,"2 Campbell Square, Liverpool L1 5FB, United Kingdom",,Yes,Yes,Yes,https://www.amalialiverpool.co.uk/,+441517090402,,https://www.instagram.com/amalialiverpool/,,,Restaurant - coffee,53.4017362,-2.9866019
-Kebabish Original,"93W2+64 Liverpool, United Kingdom",Mo-Su 12am - 11pm,Yes,Yes,Yes,http://www.kebabishoriginal.co.uk/,+441517090533,,https://www.instagram.com/kebabishoriginal/,,,Shopping - Book Store,53.3901228,-2.9607793
-Thoughtfully,"15 Cleveland Square, Liverpool L1 5BE, United Kingdom",10am - 6pm,No,Yes,No,http://www.everythingthoughtfully.co/,+441517091516,,https://www.instagram.com/thoughtfully.cafe/,,,Coffeeshop ,53.4015585,-2.9873505
-,,,,,,,,,,,,,,
+Sun: 10am - 8pm ";Yes;Yes;Yes;https://thebalticsocial.com/;+44 151 7071137 ;;https://www.instagram.com/thebaltic_social/;https://www.facebook.com/thebalticsocial;https://twitter.com/thebalticsocial;Food / Craft beer;53,3943497;-2,9815034
+Patterson Bar;Gradwell Street, L1 4JH;12 - 11pm;Yes;Yes;Yes;http://www.pattersonsliverpool.com/;+441517076367;;https://www.instagram.com/pattersonsarentwe/;;;Bar;53,4024684;-2,9851084
+Bakchich ; 54 Bold Street, Liverpool, L1 4ER ;12 - 9pm;Yes;Yes;Yes;http://www.bakchich.co.uk/liverpool.php;+441517071255;;https://www.instagram.com/bakchich_/;https://www.facebook.com/BakchichBoldStLiverpool/;https://twitter.com/Bakchich_;Restaurant;53,4034132;-2,9816197
+Christakis;136-138 Duke St, Liverpool L1 5BB, United Kingdom;Tue-Sun 4pm-9pm;Yes;Yes;Yes;http://www.christakisliverpool.co.uk/#menu;+441517089791;;https://www.instagram.com/christakis_liverpool/;https://www.facebook.com/ChristakisLpl/;https://twitter.com/Christakislpl;Restaurant;53,4003654;-2,9801825
+Crust;25 Bold St, Liverpool;11am - 11pm;Yes;Yes;Yes;http://www.crustliverpool.co.uk/;;;https://www.instagram.com/crust_uk/;;;Restaurant;53.4037005;-2.9815344
+B S C;89 Bold St, Liverpool L1 4HF, United Kingdom;07:30am - 8pm;No;Yes;No;https://www.boldstreetcoffee.co.uk/;+441514564677;;https://www.instagram.com/boldstreetcoffee/;https://www.facebook.com/bold.streetcoffee/;https://twitter.com/boldstcoffee?lang=en;Coffeeshop ;53.402469;-2.9790132
+Amalia;2 Campbell Square, Liverpool L1 5FB, United Kingdom;;Yes;Yes;Yes;https://www.amalialiverpool.co.uk/;+441517090402;;https://www.instagram.com/amalialiverpool/;;;Restaurant;53.4017362;-2.9866019
+Kebabish Original;93W2+64 Liverpool, United Kingdom;Mo-Su 12am - 11pm;Yes;Yes;Yes;http://www.kebabishoriginal.co.uk/;+441517090533;;https://www.instagram.com/kebabishoriginal/;;;Restaurant;53,3901228;-2,9607793
+Thoughtfully;15 Cleveland Square, Liverpool L1 5BE, United Kingdom;10am - 6pm;No;Yes;No;http://www.everythingthoughtfully.co/;+441517091516;;https://www.instagram.com/thoughtfully.cafe/;;;Coffeeshop ;53,4015585;-2.9873505
+;;;;;;;;;;;;;;
+TEST;TEST;TEST;Yes;Yes;Yes;;;;;;;Shopping - Other Convenience Store;;
+Test;Test;Test;Yes;Yes;Yes;;;;;;;Eating Out - Tea House;;
+Test2;Test2;Test2;Yes;Yes;Yes;;;;;;;Shopping - Specialty Clothing Store;;
+sfsdf;14 Privet Drive, Surrey;9:00-23:00;Yes;Yes;Yes;harrypotterworld.com;;;;;;Eating Out - Take Out and Delivery Only;;

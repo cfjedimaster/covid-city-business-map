@@ -9,7 +9,7 @@ body {
 }
 
 div.info {
-	width: 300px;
+	width: 280px;
     font-family: FiraGo, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
@@ -32,7 +32,7 @@ div.businessName {
 	width: 350px;
     background: rgb(255, 255, 255);
 	padding: 1rem;
-	z-index: 10;
+	z-index: 1;
 }
 
 #panel a, #panel a:visited {
@@ -60,8 +60,19 @@ div.businessName {
 
     div.info {
 	    width: 300px;
-        font-size2: 12px;
     }
+
+    ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, .5);
+    box-shadow: 0 0 1px rgba(255, 255, 255, .5);
+    }
+
 
 }
 

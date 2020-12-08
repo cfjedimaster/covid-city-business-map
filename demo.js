@@ -12,6 +12,7 @@ const icons = {
 	dining: new H.map.Icon('icons/lui-icon-eatanddrink-onlight-solid-medium.png'),
 	business: new H.map.Icon('icons/lui-icon-shopping-onlight-solid-medium.png'),
 	coffee: new H.map.Icon('icons/lui-icon-coffee-onlight-solid-medium.png'),
+	bar: new H.map.Icon('icons/lui-icon-bar-onlight-solid-medium.png'),
 	fastfood: new H.map.Icon('icons/lui-icon-foodpizza-onlight-solid-medium.png')
 }
 
@@ -74,7 +75,7 @@ async function init() {
 
 	}, false);
 
-
+console.log(data);
 	data.forEach(d => {
 		addLocation(d.location, d.info);
 	});
@@ -119,6 +120,11 @@ async function loadData() {
 					results.push({ location, info });
 				});
 
+				//remove if no location
+				results = results.filter(r => {
+					return !!r.location.lat;
+				});
+
 				resolve(results);
 
 			}
@@ -132,6 +138,11 @@ function getIcon(type) {
 	if(type.toLowerCase().indexOf('fast food') >= 0) return 'fastfood';
 	if(type.toLowerCase().indexOf('shopping') >= 0) return 'business';
 	if(type.toLowerCase().indexOf('eating out') >= 0) return 'dining';
+	if(type.toLowerCase().indexOf('food') >= 0) return 'dining';
+	if(type.toLowerCase().indexOf('restaurant') >= 0) return 'dining';
+	if(type.toLowerCase().indexOf('bar') >= 0) return 'bar';
+
+	console.log('fallback due to unrecognize type',type);
 	//default
 	return 'fallback';
 }
