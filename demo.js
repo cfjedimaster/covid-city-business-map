@@ -1,8 +1,53 @@
-const KEY = 'c1LJuR0Bl2y02PefaQ2d8PvPnBKEN8KdhAOFYR_Bgmw';
-const sheetURL = 'https://spreadsheets.google.com/feeds/cells/1-YPlOIC6AxynitIiitrQ08oxzXxtgeCvsQFa3bmcYsQ/1/public/full?alt=json';
-const formURL = 'https://forms.office.com/Pages/ResponsePage.aspx?id=zTRAbSVyck-4U5H-rqZJGb5R086JKX1Dr4bzttc1Kn9UN1daUkVQRVRGMURaWk8yRjJHN0dPMVgxQi4u';
 
-const csvURL = './Business Responses.csv';
+const KEY = 'c1LJuR0Bl2y02PefaQ2d8PvPnBKEN8KdhAOFYR_Bgmw';
+
+// things that toggle between liverpool and lyon
+const liverPool = {
+	formURL:'https://forms.office.com/Pages/ResponsePage.aspx?id=zTRAbSVyck-4U5H-rqZJGb5R086JKX1Dr4bzttc1Kn9UN1daUkVQRVRGMURaWk8yRjJHN0dPMVgxQi4u',
+	csvURL:'./Business Responses.csv',
+	panelTitle:'Giving back to local businesses during lockdown',
+	panelP1:`This map of Liverpool shows you <strong>which businesses remain open during lockdown</strong> and still deliver food and goods locally. <strong>If you are a Liverpool-based business owner</strong> and want to be included, use the submission form below.`,
+	submitBtnText:'Submit your business',
+	panelP2:`HERE's new give-back solution, <strong>HERE WeGo Deliver, streamlines complex multi-stop deliveries and can help small 
+businesses like yours</strong> transition to a high-demand delivery model. <strong>Free access to the HERE WeGo Deliver</strong> app will 
+be extended next year. It now has new features, including <strong>availability in 11 different languages, set-up for 
+contactless deliveries, tour export</strong> in CSV format and a comfortable order import assistant.`,
+	wegoBtnText:'Get HERE WeGo Deliver for free',
+	openHoursText:'Open Hours',
+	addressText:'Address',
+	deliveryText:'Delivery?',
+	contactlessText:'Contactless Delivery?',
+	curbsideText:'Curbside Pickup?',
+	center: {
+		lat: 53.41005, lng: -2.9784 
+	}
+}
+
+const lyon = {
+	formURL:'https://forms.office.com/Pages/ResponsePage.aspx?id=zTRAbSVyck-4U5H-rqZJGb5R086JKX1Dr4bzttc1Kn9UQk9VTVpLRU9BNExYR1dKSTlEVlhWQjdTQi4u',
+	csvURL:'./Business Responses.csv',
+	panelTitle:'Soutenir les commerces de proximité pendant le confinement',
+	panelP1:`Cette carte de Lyon montre les entreprises qui continuent leur activité pendant le confinement et maintiennent les livraisons à domicile. Si vous êtes propriétaire d'une entreprise basée à Lyon, utilisez notre formulaire pour ajouter votre commerce sur la carte.`,
+	submitBtnText:'Submit le business',
+	panelP2:`Pour vous aider pendant cette période difficile, nous avons également lancé une solution pour planifier vos livraisons et faire face à l’augmentation des demandes. Avec HERE WeGo Deliver, mobilisez votre personnel et lancez rapidement et simplement votre propre service de livraison.
+L’application est gratuite`,
+	wegoBtnText:'Lancer HERE WeGo Deliver',
+	openHoursText:'Le Open Hours',
+	addressText:'Le Address',
+	deliveryText:'Le Delivery?',
+	contactlessText:'Le Contactless Delivery?',
+	curbsideText:'Le Curbside Pickup?',
+	center: {
+		lat: 45.763420, lng: 4.834277 
+	}
+
+}
+
+let formURL;
+let csvURL;
+let openHoursText, addressText, deliveryText, contactlessText, curbsideText;
+let locale, center;
+
 document.addEventListener('DOMContentLoaded', init, false);
 
 let map, icon, group;
@@ -16,7 +61,33 @@ const icons = {
 	fastfood: new H.map.Icon('icons/lui-icon-foodpizza-onlight-solid-medium.png')
 }
 
+/* hack way to get liverpool vs lyon */
+function getLocale() {
+	if(window.location.href.indexOf('lyon') >= 0 || window.location.search.indexOf('fr') >= 0) return 'fr';
+	return 'en';
+}
+
 async function init() {
+
+	locale = getLocale();
+	console.log('locale', locale);
+	
+	let localInfo = liverPool;
+	if(locale !== 'en') localInfo = lyon;
+
+	formURL = localInfo.formURL;
+	csvURL = localInfo.csvURL;
+	document.querySelector('#panelTitle').innerHTML = localInfo.panelTitle;
+	document.querySelector('#panelP1').innerHTML = localInfo.panelP1;
+	document.querySelector('#gotoFormBtn').innerHTML = localInfo.submitBtnText;
+	document.querySelector('#panelP2').innerHTML = localInfo.panelP2;
+	document.querySelector('#wegoBtn').innerHTML = localInfo.wegoBtnText;
+	openHoursText = localInfo.openHoursText;
+	addressText = localInfo.addressText;
+	deliveryText = localInfo.deliveryText;
+	contactlessText = localInfo.contactlessText;
+	curbsideText = localInfo.curbsideText;
+	center = localInfo.center;
 
 	document.querySelector('#gotoFormBtn').addEventListener('click', e => {
 		document.location.href = formURL;
@@ -38,7 +109,7 @@ async function init() {
 		defaultLayers.vector.normal.map,
 		{
 			zoom: 13,
-			center: { lat: 53.41005, lng: -2.9784 },
+			center,
 			pixelRatio: window.devicePixelRatio || 1
 		}
 	);
@@ -61,8 +132,6 @@ async function init() {
 	map.addObject(group);
 
 	group.addEventListener('tap', evt => {
-		console.log('show bubble event');
-
 		ui.getBubbles().forEach(bub => ui.removeBubble(bub));
 				
 		var bubble =  new H.ui.InfoBubble(evt.target.getGeometry(), {
@@ -72,10 +141,9 @@ async function init() {
 		ui.addBubble(bubble);
 		//center map maybe? no, not now
 		//map.getViewModel().setLookAtData({position: evt.target.getGeometry()});
-
 	}, false);
 
-console.log(data);
+	console.log(data);
 	data.forEach(d => {
 		addLocation(d.location, d.info);
 	});
@@ -156,8 +224,8 @@ function addLocation(location, info) {
 <div class='businessName'>${info.name}</div>
 <p>
 ${type}<br/>
-Open Hours: ${info.openHours}<br/>
-Address: ${info.address}<br/>`;
+${openHoursText}: ${info.openHours}<br/>
+${addressText}: ${info.address}<br/>`;
 	if(info.url) html += `<img src="icons/lui-icon-information-onlight-solid-medium.png"> <a href="${info.url}" target="_new">${linkShort(info.url)}</a><br/>`;
 	if(info.phone) html += `<img src="icons/lui-icon-phone-onlight-solid-medium.png" >  ${info.phone}<br/>`;
 	if(info.instagram) html += `<img src="icons/instagram-logo.png"> <a href="${info.instagram}" target="_new">${linkShort(info.instagram)}</a><br/>`;
@@ -168,9 +236,9 @@ Address: ${info.address}<br/>`;
 </p>
 
 <p>
-Delivery? ${info.delivery}<br/>
-Contactless Delivery? ${info.contactless}<br/>
-Curbside Pickup? ${info.curbside}
+${deliveryText} ${info.delivery}<br/>
+${contactlessText} ${info.contactless}<br/>
+${curbsideText} ${info.curbside}
 </p>
 </div>
 	`;
